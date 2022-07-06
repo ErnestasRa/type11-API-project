@@ -21,8 +21,8 @@ fetch(`https://jsonplaceholder.typicode.com/albums/?_limit=15`)
        fetch(`https://jsonplaceholder.typicode.com/users/${album.userId}`)
        .then(res=>res.json())
        .then(data =>{
-
-        fetch(`https://jsonplaceholder.typicode.com/photos/${album.id}`)
+        console.log(data)
+        fetch(`https://jsonplaceholder.typicode.com/photos/${data.id}?${album.id}`)
         .then(res=>res.json())
         .then(photos => {
         
