@@ -19,11 +19,6 @@ fetch(`https://jsonplaceholder.typicode.com/posts/?_limit=15`)
       fetch(`https://jsonplaceholder.typicode.com/comments/${post.id}`)
       .then(res =>res.json())
       .then(comments => {
-        
-     
-
-
-
       userPosts.classList.add('user-posts')
       userPosts.innerHTML = `<h3>${post.title}</h3>
                             <h2><a href="./user.html?user_id=${users.id}">${users.name}</a></h2>         

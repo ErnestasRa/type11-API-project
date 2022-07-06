@@ -11,30 +11,6 @@ let queryParams = document.location.search;
 let urlParams = new URLSearchParams(queryParams);
 let albumId = urlParams.get('album_id');
 
-const swiper = new Swiper('.swiper', {
-    // Optional parameters
-    direction: 'vertical',
-    loop: true,
-  
-    // If we need pagination
-    pagination: {
-      el: '.swiper-pagination',
-    },
-  
-    // Navigation arrows
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-  
-    // And if we need scrollbar
-    scrollbar: {
-      el: '.swiper-scrollbar',
-    },
-  });
-  
-
-
 
 fetch(`https://jsonplaceholder.typicode.com/albums/?_limit=15`)
 .then(res => res.json())
