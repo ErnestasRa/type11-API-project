@@ -1,5 +1,14 @@
 let postsWrapper = document.querySelector('#posts-wrapper');
 let albumsWrapper = document.querySelector('#albums-wrapper');
+let searchForm = document.getElementById('search-form')
+
+searchForm.addEventListener('submit', (e) => {
+  e.preventDefault()
+  const searchInput = document.querySelector('input').value
+  window.sessionStorage.setItem('searchInput', searchInput)
+  window.location.replace('./search.html')
+})
+
 
 fetch('https://jsonplaceholder.typicode.com/posts?_limit=5')
   .then(res => res.json())
