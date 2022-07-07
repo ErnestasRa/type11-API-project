@@ -15,7 +15,7 @@ fetch(`https://jsonplaceholder.typicode.com/users`)
                 
         
         let userElement = document.createElement('div')
-        userElement.innerHTML = `<h2><a href="./user.html?user_id=${user.id}">${user.name}</a></h2>
+        userElement.innerHTML = `<h3><a href="./user.html?user_id=${user.id}">${user.name}</a></h3>
                                  <h3>Number of posts:${count} </h3>   `
            
         usersWrapper.append(userElement)

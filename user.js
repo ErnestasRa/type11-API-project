@@ -8,7 +8,7 @@ fetch('https://jsonplaceholder.typicode.com/users/' + userId)
   .then(res => res.json())
   .then(user => {
     let userInfo = document.querySelector('#user-info');
-    console.log(user)
+    
     userInfo.innerHTML = `<h2>${user.name} (${user.username})</h2>
                           <ul>
                             <li><strong>Email:</strong> <a href="mailto:${user.email}">${user.email}</a></li>
@@ -17,7 +17,7 @@ fetch('https://jsonplaceholder.typicode.com/users/' + userId)
                             <li><strong>Website:</strong> <a href="${user.website}" target="_blank">${user.website}</a></li>
                             <li><strong>Work:</strong> ${user.company.name}</li>
                           </ul>`
-  })
+  
 
 fetch(`https://jsonplaceholder.typicode.com/users/${userId}/posts`)
   .then(res => res.json())
@@ -36,7 +36,7 @@ fetch(`https://jsonplaceholder.typicode.com/users/${userId}/posts`)
 
       postItem.innerHTML = `<h4>${post.title}</h4>
                             <p>${post.body}</p>
-                            <a href="./post.html?post_id=${post.id}">Read More</a>`;
+                            <a href="./post.html?post_id=${post.id}&user_id=${userId}">Read More</a>`;
 
       postsWrapper.append(postItem);
     })
@@ -58,8 +58,9 @@ fetch(`https://jsonplaceholder.typicode.com/users/${userId}/albums`)
       let albumItem = document.createElement('li');
       albumItem.classList.add('album-item');
 
-      albumItem.innerHTML = `<a href="./album.html?album_id=${userId}">${album.title}</a>`;
+      albumItem.innerHTML = `<a href="./album.html?album_id=${album.id}&album_title=${album.title}&user_id=${album.userId}&user_name=${user.name}">${album.title}</a>`;
 
       albumsList.prepend(albumItem);
     })
   })
+})

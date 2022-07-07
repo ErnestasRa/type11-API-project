@@ -10,31 +10,41 @@
 let queryParams = document.location.search;
 let urlParams = new URLSearchParams(queryParams);
 let albumId = urlParams.get('album_id');
+let albumTitle = urlParams.get('album_title')
+let userId = urlParams.get('user_id')
+let userName = urlParams.get('user_name')
 
 
-fetch(`https://jsonplaceholder.typicode.com/albums/?_limit=15`)
+
+fetch(`https://jsonplaceholder.typicode.com/albums/${albumId}/photos`)
 .then(res => res.json())
-.then(albums => {
-    let albumItem = document.getElementById('album-wrapper')
-    albumItem.innerHTML = '<h2>Albums:</h2>'
-    albums.map(album => {
-       fetch(`https://jsonplaceholder.typicode.com/users/${album.userId}`)
-       .then(res=>res.json())
-       .then(data =>{
-        console.log(data)
-        fetch(`https://jsonplaceholder.typicode.com/photos/${data.id}?${album.id}`)
-        .then(res=>res.json())
-        .then(photos => {
-        
-        let albumElement = document.createElement('div')
-        albumElement.innerHTML = `<h3>${album.title}</h3>
-                                  <h4><a href="./user.html?user_id=${data.name}"></a></h4>
-                                  <img src="${photos.thumbnailUrl}"> </img>
-                                  `
-         
-        albumItem.append(albumElement)
-       
-    })
-    })
-   })
+.then(photos => {
+    if(photos.length > 0) {
+        let albumWrapper = document.getElementById('album-wrapper')
+
+        let albumTitleElement = document.createElement('h1')
+        albumTitleElement.classList.add('album-title')
+        albumTitleElement.textContent = albumTitle
+    
+        let albumAuthorElement = document.createElement('span')
+        albumAuthorElement.classList.add('album-title')
+        albumAuthorElement.innerHTML = `<strong>Album author:</strong> <a href="./user.html?user_id=${userId}">${userName}</a>`
+        console.log(userName)
+        let albumPhotos = document.createElement('div')
+        albumPhotos.classList.add('album-photos')
+    
+        albumWrapper.append(albumTitle,albumAuthorElement,albumPhotos)
+    
+        photos.map(photo => {
+            let imageElement = document.createElement('img')
+            imageElement.src = photo.thumbnailUrl
+            imageElement.classList.add('album-image')
+            imageElement.setAttribute('alt', photo.title)
+    
+            albumPhotos.prepend(imageElement)
+        })
+    } else {
+        albumWrapper.innerHTML = `<h1>Albums not found</h1>`
+    }
+  
 })
