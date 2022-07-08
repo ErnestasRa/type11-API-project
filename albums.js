@@ -1,34 +1,32 @@
+let queryParams = document.location.search;
+let urlParams = new URLSearchParams(queryParams);
+let userId = urlParams.get('user_id');
 
+let albumWrapper = document.getElementById('albums-wrapper')
 
-
-fetch(`https://jsonplaceholder.typicode.com/albums/?_limit=40`)
+fetch('https://jsonplaceholder.typicode.com/albums')
 .then(res => res.json())
 .then(albums => {
-    let albumWrapper = document.getElementById('albums-wrapper')
-    albumWrapper.classList.add('album-wrapper')
-    albumWrapper.innerHTML = `<h1>All albums: </h1>`
-    albums.map(album => {
-        fetch(`https://jsonplaceholder.typicode.com/users/${album.userId}`)
-        .then(res => res.json())
-        .then(users => {
-        fetch(`https://jsonplaceholder.typicode.com/photos/${users.id}?${album.id}`)
-        .then(res =>res.json())
-        .then(userAlbums => {
-            let count = 0
-            for(let prop in userAlbums) {
-                if(userAlbums.hasOwnProperty(prop))
-                count++
-            }
-        
-        let albumsElement = document.createElement('div')
-        albumsElement.innerHTML = `<h2>${album.title}</h2>
-                                    <h3> <a href="./user.html?user_id=${users.id}">${users.name}</a></h3>
-                                    <h4>${users.name} has ${count} photos</h4>
-                                    <img src="${userAlbums.thumbnailUrl}">  </img>`
-       
 
-        albumWrapper.append(albumsElement)
-    })
-    })
-})
+  albums.map(album => {
+    let albumItem = document.createElement('div');
+    albumItem.classList.add('album-item');
+
+    fetch('https://jsonplaceholder.typicode.com/users/' + album.userId)
+      .then(res => res.json())
+      .then(user => {
+
+        fetch(`https://jsonplaceholder.typicode.com/albums/${album.id}/photos?_limit=1`)
+          .then(res => res.json())
+          .then(photos => {
+            albumItem.innerHTML = `<h3><a href="./album.html?album_id=${album.id}&album_title=${album.title}&user_id=${album.userId}&user_name=${user.name}">${album.title}</a></h3>
+                                   <div>Album created by:<a href="./user.html?user_id=${user.id}">${user.name}</a> </div>
+                                   <img src="${photos[0].thumbnailUrl}">`;
+          })
+      })
+
+      albumWrapper.prepend(albumItem);
+  })
+
+
 })
