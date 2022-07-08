@@ -1,7 +1,7 @@
 
 
 
-fetch(`https://jsonplaceholder.typicode.com/albums/?_limit=15?`)
+fetch(`https://jsonplaceholder.typicode.com/albums/?_limit=40`)
 .then(res => res.json())
 .then(albums => {
     let albumWrapper = document.getElementById('albums-wrapper')
@@ -26,11 +26,6 @@ fetch(`https://jsonplaceholder.typicode.com/albums/?_limit=15?`)
                                     <h4>${users.name} has ${count} photos</h4>
                                     <img src="${userAlbums.thumbnailUrl}">  </img>`
        
-            
-
-
-
-
 
         albumWrapper.append(albumsElement)
     })
