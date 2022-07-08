@@ -5,7 +5,7 @@ let userId = urlParams.get('user_id');
 
 
 let postsWrapper = document.getElementById('posts-wrapper')
-fetch('https://jsonplaceholder.typicode.com/posts?_limit=20')
+fetch('https://jsonplaceholder.typicode.com/posts?_limit=50')
   .then(res => res.json())
   .then(posts => {
     posts.map(post => {
