@@ -18,7 +18,7 @@ fetch('https://jsonplaceholder.typicode.com/posts?_limit=20')
 
       let postTitle = document.createElement('h2');
       postTitle.classList.add('post-title');
-      postTitle.innerHTML =  `<a href="./post.html?post_id=${post.id}&user_id=${userId}">${updatedTitle}</a>;`
+      postTitle.innerHTML =  `<a href="./post.html?post_id=${post.id}&user_id=${userId}">${updatedTitle}</a>`
 
       let postAuthor = document.createElement('span');
       postAuthor.classList.add('post-author');
@@ -27,10 +27,7 @@ fetch('https://jsonplaceholder.typicode.com/posts?_limit=20')
       postBody.classList.add('post-content');
       postBody.textContent = post.body;
 
-      let commentsWrapper = document.createElement('div');
-      commentsWrapper.classList.add('comments-wrapper');
-
-      postItem.append(postTitle, postAuthor, postBody, commentsWrapper);
+      postItem.append(postTitle, postAuthor, postBody);
       postsWrapper.prepend(postItem);
 
       fetch('https://jsonplaceholder.typicode.com/users/' + post.userId)
@@ -39,19 +36,6 @@ fetch('https://jsonplaceholder.typicode.com/posts?_limit=20')
           postAuthor.innerHTML = `Author: <a href="./user.html?user_id=${user.id}">${user.name}</a>`;
         })
       
-      fetch(`https://jsonplaceholder.typicode.com/posts/${post.id}/comments`)
-        .then(res => res.json())
-        .then(comments => {
-          comments.map(comment => {
-            let commentItem = document.createElement('div');
-            commentItem.classList.add('comment-item');
 
-            commentItem.innerHTML = `<h3>${comment.name}</h3>
-                                     <span>Comment by: ${comment.email}</span>
-                                     <p>${comment.body}</p>`
-
-            commentsWrapper.prepend(commentItem);              
-          })
-        })
     });
   })
