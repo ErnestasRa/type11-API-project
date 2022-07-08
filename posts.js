@@ -1,5 +1,11 @@
+let queryParams = document.location.search;
+let urlParams = new URLSearchParams(queryParams);
+let userId = urlParams.get('user_id');
+
+
+
 let postsWrapper = document.getElementById('posts-wrapper')
-fetch('https://jsonplaceholder.typicode.com/posts?_limit=5')
+fetch('https://jsonplaceholder.typicode.com/posts?_limit=20')
   .then(res => res.json())
   .then(posts => {
     posts.map(post => {
@@ -12,7 +18,7 @@ fetch('https://jsonplaceholder.typicode.com/posts?_limit=5')
 
       let postTitle = document.createElement('h2');
       postTitle.classList.add('post-title');
-      postTitle.textContent = updatedTitle;
+      postTitle.innerHTML =  `<a href="./post.html?post_id=${post.id}&user_id=${userId}">${updatedTitle}</a>;`
 
       let postAuthor = document.createElement('span');
       postAuthor.classList.add('post-author');

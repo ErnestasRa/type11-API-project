@@ -55,7 +55,8 @@ fetch('https://jsonplaceholder.typicode.com/posts?_limit=5')
                                      <span>Comment by: ${comment.email}</span>
                                      <p>${comment.body}</p>`
 
-            commentsWrapper.prepend(commentItem);              
+            commentsWrapper.prepend(commentItem);  
+                     
           })
         })
     });
