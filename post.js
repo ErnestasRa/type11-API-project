@@ -25,7 +25,7 @@ fetch('https://jsonplaceholder.typicode.com/posts/' + postId)
       postBody.textContent = post.body;
 
       let otherPosts = document.createElement('a')
-      otherPosts.textContent = 'Other posts'
+      otherPosts.textContent = 'Back'
       otherPosts.setAttribute('href', `./posts.html?user_id=${post.userId}`)
 
 
